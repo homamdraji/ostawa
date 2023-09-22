@@ -220,6 +220,7 @@ class _AddserviceState extends State<Addservice> {
       });
     }
   }
+  
 
 
   @override
@@ -227,73 +228,13 @@ class _AddserviceState extends State<Addservice> {
     super.initState();
     fetchData();
   }
-
-  
-
-
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-       onTap: () {
-        // FocusScope.of(context).unfocus() will hide the keyboard.
-        FocusScope.of(context).unfocus();},
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('add service'.tr),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Form(
-            key: formke,
-            autovalidateMode: AutovalidateMode.always,
-            child: ListView.builder(
-              itemCount: 1 + (data != null ? 1 : 0), // Data form + Submit button
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  // Data form
-                  if (data != null) {
-                    return buildit(data!);
-                  }  if (isLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                } else {
-                  // Submit button
-                  return Column(
-                    children: [
-                      //  Center(
-                      //   child: ElevatedButton(
-                      //     onPressed: pickImage,
-                      //     child: Text("add image".tr),
-                      //   ),
-                      // ),
-    
-                      Center(
-                        child: ElevatedButton(
-                          onPressed: (){
-                            //  if (_pickedImage != null) {
-                            //   uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
-                            //   save();
-                            // } else {
-                              save();
-                            //  }
-                          } ,
-                          child: Text("save".tr),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-                return null;
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget buildit(Map<String, dynamic> data) {
-    // Build your form using the 'data'
+
+   Widget buildit(Map<String, dynamic> data) {
+    
+
     return Column(
       children: [
                        Padding(
@@ -358,6 +299,7 @@ class _AddserviceState extends State<Addservice> {
                 
                 const SizedBox(height: 10,),
                 TextFormField(
+                   controller: data['describtion'] == null ? null :  TextEditingController( text:  '${data['describtion']}'),
                    onSaved: (newValue) {
                        describtion = newValue ;
                       } ,
@@ -414,4 +356,66 @@ class _AddserviceState extends State<Addservice> {
       ],
     );
   }
+
+
+
+    return GestureDetector(
+       onTap: () {
+        // FocusScope.of(context).unfocus() will hide the keyboard.
+        FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('add service'.tr),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Form(
+            key: formke,
+            autovalidateMode: AutovalidateMode.always,
+            child: ListView.builder(
+              itemCount: 1 + (data != null ? 1 : 0), // Data form + Submit button
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  // Data form
+                  if (data != null) {
+                    return buildit(data!);
+                  }  if (isLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                } else {
+                  // Submit button
+                  return Column(
+                    children: [
+                      //  Center(
+                      //   child: ElevatedButton(
+                      //     onPressed: pickImage,
+                      //     child: Text("add image".tr),
+                      //   ),
+                      // ),
+    
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: (){
+                            //  if (_pickedImage != null) {
+                            //   uploadAndDeleteImage(FirebaseAuth.instance.currentUser!.uid); // Replace with the actual user ID
+                            //   save();
+                            // } else {
+                              save();
+                            //  }
+                          } ,
+                          child: Text("save".tr),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return null;
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
 }
