@@ -1,0 +1,88 @@
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
+# Integration section is required to make use of the keys stored in 
+# Codemagic UI under Apple Developer Portal integration.
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    max_build_duration: 30
+    integrations:
+      app_store_connect: ostawatcodemagic
+    environment:
+      groups:
+        - firebase_credentials
+      ios_signing:
+        distribution_type: development
+        bundle_identifier: io.Ostawat.classicCounter
+        
+      vars:
+        APP_STORE_APPLE_ID: 6466175365
+      flutter: stable
+    scripts:
+      - name: Load Firebase configuration
+        script: | 
+          #!/usr/bin/env sh
+          set -e # exit on first failed command
+          echo $IOS_FIREBASE_SECRET > $CM_BUILD_DIR/ios/Runner/GoogleService-Info.plist
+      - name: Load Firebase configuration
+        script: | 
+          #!/usr/bin/env sh
+          set -e # exit on first failed command
+          PROJECT_ROOT=$CM_BUILD_DIR    # ADD YOUR PROJECT FOLDER PATH HERE
+          echo $IOS_FIREBASE_SECRET > $PROJECT_ROOT/ios/Runner/GoogleService-Info.plist
+
+      - name: Set up code signing settings on Xcode project
+        script: | 
+          xcode-project use-profiles
+      - name: Get Flutter packages
+        script: | 
+          flutter packages pub get
+      - name: Install pods
+        script: | 
+          find . -name "Podfile" -execdir pod install \;
+      - name: Flutter analyze
+        script: | 
+          flutter analyze
+      - name: Flutter unit tests
+        script: | 
+          flutter test
+        ignore_failure: true
+      - name: Flutter build ipa
+        script: | 
+          flutter build ipa --release \
+            --build-name=1.1.4 \
+            --build-number=$(($(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID") + 4)) \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - flutter_drive.log
+    publishing:
+      email:
+        recipients:
+          - ihomamdraji@icloud.com
+          - user_2@example.com
+        notify:
+          success: true
+          failure: false
+      app_store_connect:
+        auth: integration
+
+        # Configuration related to TestFlight (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_testflight: true
+        beta_groups: # Specify the names of beta tester groups that will get access to the build once it has passed beta review.
+          - group name 1
+          - group name 2
+
+        # Configuration related to App Store (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_app_store: false
+        
+        
