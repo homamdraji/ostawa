@@ -18,7 +18,7 @@ workflows:
       groups:
         - firebase_credentials
       ios_signing:
-        distribution_type: development
+        distribution_type: app_store
         bundle_identifier: io.Ostawat.classicCounter
         
       vars:
