@@ -233,8 +233,6 @@ class _AddserviceState extends State<Addservice> {
 
 
    Widget buildit(Map<String, dynamic> data) {
-    
-
     return Column(
       children: [
                        Padding(

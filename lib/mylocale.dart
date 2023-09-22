@@ -114,7 +114,7 @@ class Mylocale implements Translations {
        'sub' : 'حساب مقدم خدمات',
        'nosub' : 'حساب عادي',
     'othersreport' :  'ابلاغ اخر',
-    'version : 1.0.1': 'الاصدار : 1.1.4',
+    'version : 1.0.1': 'الاصدار : 1.1.5',
     'name': "الاسم",
    
         'weak networks': 'الاتصال ضعيف',
@@ -242,7 +242,7 @@ class Mylocale implements Translations {
       'sub' : 'Service account',
        'nosub' : 'Normal account',
         'othersreport' :  'Other report',
-        'version : 1.0.1': 'Version : 1.1.4',
+        'version : 1.0.1': 'Version : 1.1.5',
         'name' : 'Name',
         'weak networks': 'Weak network',
         'Enter Phone Number':  'Enter Phone Number to sign in or sign up',
